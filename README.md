@@ -1,5 +1,5 @@
 # paperassist
-A scientific assistant collecting academic papers.
+一个科研论文采集助手，可以在google学术和百度学术上搜索领域论文，并且自动找到综述类论文，有利于文献综述的写作和科研入门者的学习A scientific assistant collecting academic papers
 
 ===
 # Features
