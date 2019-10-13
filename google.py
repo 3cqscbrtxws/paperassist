@@ -8,7 +8,7 @@ class GoogleItem(scrapy.Item):
     date = scrapy.Field()
     cited = scrapy.Field()
     authors = scrapy.Field()
-    links = scrapy.Field()  # source links
+    links = scrapy.Field()
 
 
 class GoogleSpider(scrapy.Spider):
@@ -80,9 +80,11 @@ class GoogleSpider(scrapy.Spider):
             authors,conference,_ = meta_info.split('-')
             item['authors'] = [x.strip() for x in authors.split(',')]
             item['date'] = conference.split(',')[-1].strip()
-
+            if int(item['date']) < 2000:
+                break
             item['cited'] = div.xpath(
                 "./div[@class='gs_ri']/div[@class='gs_fl']//a[2]").extract()[0].strip().split('：')[-1]
 
             item['links'] = links
             yield item
+# scrapy runspider -a keyword='mesenteric vasculitis' -a number=500 -a sort_key=0 -o google_papers.json google.py
