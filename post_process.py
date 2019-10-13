@@ -34,7 +34,8 @@ if __name__ == "__main__":
     
 
     for item in papers:
-        item['cited'] = int(item['cited'])
+        if item['cited']:
+         item['cited'] = int(item['cited'])
         if '年' in item['date']:
             item['date'] = int(item['date'][:-1])
         title = item['title']
@@ -46,7 +47,7 @@ if __name__ == "__main__":
                 if u in authors:
                     author_papers.append(item)
                     break
-    high_cited_papers = sorted(papers, key=lambda x: x['cited'], reverse=True)
+    high_cited_papers = sorted(papers, key=lambda x: x['cited'] if x['cited'] else 1, reverse=True)
     updated_papers = sorted(papers, key=lambda x: x['date'], reverse=True) # date sorted
     # save
     with open('./result/suvery.txt', 'w') as f:

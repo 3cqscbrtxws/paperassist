@@ -73,7 +73,10 @@ class BaiduSpider(scrapy.Spider):
             item['authors'] = [x.strip()
                                for x in spans[0].xpath('./a/text()').extract()]
             # item['cited'] = spans[-2].xpath('./text()').extract()[0].split()[-1]
-            item['cited'] = spans[-2].xpath('./a/text()').extract()[0].strip()
+            try:
+                item['cited'] = spans[-2].xpath('./a/text()').extract()[0].strip()
+            except:
+                item['cited'] = []
             item['date'] = spans[-1].xpath('./text()').extract()[0].split()[0]
 
             spans = div.xpath(
